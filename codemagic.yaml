@@ -1,15 +1,16 @@
 workflows:
-  build-android:
-    name: Build Android APK
-    max_build_duration: 60
+  web-build:
+    name: Build Static Website
     environment:
-      flutter: stable
       vars:
-        BUILD_TYPE: release
+        NODE_VERSION: "18.16.0"
+      node: $NODE_VERSION
     scripts:
       - name: Install dependencies
-        script: flutter pub get
-      - name: Build APK
-        script: flutter build apk --release
+        script: |
+          npm install
+      - name: Build website
+        script: |
+          npm run build
     artifacts:
-      - build/app/outputs/flutter-apk/app-release.apk
+      - build/**
