@@ -1,16 +1,25 @@
 workflows:
-  web-build:
-    name: Build Static Website
+  build_web:
+    name: Build CoinPal Frontend
+    max_build_duration: 20
     environment:
       vars:
-        NODE_VERSION: "18.16.0"
+        NODE_VERSION: 18.18.0
       node: $NODE_VERSION
     scripts:
+      - name: Navigate to web folder
+        script: |
+          cd web
       - name: Install dependencies
         script: |
+          cd web
           npm install
-      - name: Build website
+      - name: Build project
         script: |
+          cd web
           npm run build
     artifacts:
-      - build/**
+      - web/dist/**
+    publishing:
+      scripts:
+        - echo "Build completed for CoinPal web"
