@@ -1,25 +1,15 @@
 workflows:
-  build_web:
-    name: Build CoinPal Frontend
-    max_build_duration: 20
+  vite-web-app:
+    name: Build Vite Web App
+    max_build_duration: 15
     environment:
-      vars:
-        NODE_VERSION: 18.18.0
-      node: $NODE_VERSION
+      node: latest
     scripts:
-      - name: Navigate to web folder
-        script: |
-          cd web
       - name: Install dependencies
         script: |
-          cd web
           npm install
-      - name: Build project
+      - name: Build Vite app
         script: |
-          cd web
           npm run build
     artifacts:
-      - web/dist/**
-    publishing:
-      scripts:
-        - echo "Build completed for CoinPal web"
+      - dist/**
