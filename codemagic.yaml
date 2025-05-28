@@ -1,18 +1,15 @@
-build-web:
-    name: Build Flutter Web and Zip Output
-    max_build_duration: 30
+workflows:
+  vite-web-app:
+    name: Build Vite Web App
+    max_build_duration: 15
     environment:
-      flutter: stable
+      node: latest
     scripts:
-      - name: Get dependencies
+      - name: Install dependencies
         script: |
-          flutter pub get
-      - name: Build Flutter Web
+          npm install
+      - name: Build Vite app
         script: |
-          flutter build web
-      - name: Zip web build
-        script: |
-          cd build/web
-          zip -r ../web-build.zip .
+          npm run build
     artifacts:
-      - build/web-build.zip
+      - dist/**
