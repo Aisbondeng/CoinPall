@@ -1,26 +1,18 @@
-workflows:
-  flutter-android:
-    name: Build Flutter APK (appcryvault)
-    max_build_duration: 60
+build-web:
+    name: Build Flutter Web and Zip Output
+    max_build_duration: 30
     environment:
       flutter: stable
-      xcode: latest
-      android: latest
-      vars:
-        PACKAGE_NAME: "com.coinpall.appcryvault"
     scripts:
-      - name: Set up Flutter dependencies
+      - name: Get dependencies
         script: |
           flutter pub get
-      - name: Build release APK
+      - name: Build Flutter Web
         script: |
-          flutter build apk --release
+          flutter build web
+      - name: Zip web build
+        script: |
+          cd build/web
+          zip -r ../web-build.zip .
     artifacts:
-      - build/app/outputs/flutter-apk/app-release.apk
-    publishing:
-      email:
-        recipients:
-          - aisbondeng@gmail.com
-        notify:
-          success: true
-          failure: true
+      - build/web-build.zip
